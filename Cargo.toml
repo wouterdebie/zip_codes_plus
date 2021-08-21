@@ -1,0 +1,20 @@
+[package]
+name = "zip_codes_plus"
+version = "0.1.0"
+edition = "2018"
+build = "build.rs"
+authors = ["Wouter de Bie <wouter@evenflow.nl>"]
+description = "A lookup table for all primary U.S. ZIP codes with reverse city lookup"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/wouterdebie/zip_codes_plus"
+documentation = "https://docs.rs/zip_codes_plus"
+
+[dependencies]
+phf = "0.10.0"
+
+[build-dependencies]
+csv = "1.1.6"
+phf_codegen = "0.10.0"
+serde = {version = "1.0.127", features = ["derive"] }
+titlecase = "1.1.0"
