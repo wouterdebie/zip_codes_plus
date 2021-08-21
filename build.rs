@@ -38,7 +38,7 @@ impl TempRecord {
         let mut output = String::from("Record {");
         output.push_str(&format!("zip_code: \"{}\",", self.zip_code));
         output.push_str(&format!("zip_code_type: {},", self.encoded_type()));
-        output.push_str(&format!("city: \"{}\",", self.city));
+        output.push_str(&format!("city: \"{}\",", titlecase::titlecase(&self.city)));
         output.push_str(&format!("state: \"{}\",", self.state));
         output.push_str(&format!("coordinates: {},", self.coordinates()));
         output.push_str(&format!("is_decommissioned: {},", self.is_decommissioned));

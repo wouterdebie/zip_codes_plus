@@ -4,20 +4,23 @@
 //!
 //! ```
 //! assert_eq!(zip_codes_plus::map().get("10465").unwrap().state, "NY");
-//! assert_eq!(zip_codes_plus::map().get("53186").unwrap().city, "WAUKESHA");
+//! assert_eq!(zip_codes_plus::map().get("53186").unwrap().city, "Waukesha");
 //! assert_eq!(
-//! zip_codes_plus::by_city("Westwood, NJ")
+//! zip_codes_plus::by_city("Westwood, NJ").unwrap()
 //! .iter()
 //! .map(|r| r.zip_code)
 //! .collect::<Vec<&str>>(),
 //! vec!["07675"]
 //! );
 //! assert_eq!(
-//! zip_codes_plus::by_city("Whippany, NJ")
-//! .iter()
-//! .map(|r| r.zip_code)
-//! .collect::<Vec<&str>>(),
-//! vec!["07983", "07999", "07981"]
+//!   zip_codes_plus::by_city("Whippany, NJ").unwrap()
+//!     .iter()
+//!     .map(|r| r.zip_code)
+//!     .collect::<Vec<&str>>(),
+//!   vec!["07983", "07999", "07981"]
+//! );
+//! assert!(
+//!    zip_codes_plus::by_city("Nowhere, LA").is_none()
 //! );
 //! ```
 
@@ -67,11 +70,12 @@ pub fn map() -> &'static Map {
 
 /// Returns a `Vec<&Record>` based on a "City, State"
 #[inline]
-pub fn by_city(city: &str) -> Vec<&Record> {
-    CITY_MAP
-        .get(city)
-        .unwrap()
-        .iter()
-        .map(|x| ZIP_CODES.get(*x).unwrap())
-        .collect()
+pub fn by_city(city: &str) -> Option<Vec<&Record>> {
+    Some(
+        CITY_MAP
+            .get(city)?
+            .iter()
+            .map(|x| ZIP_CODES.get(*x).unwrap())
+            .collect(),
+    )
 }
